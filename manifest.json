@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "name": "testExt",
+    "version": "1.0.0",
+    
+    "background": 
+        {
+            "service_worker": "background.js"
+            
+
+        }
+    ,
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "css": [
+                "popup.css"
+            ],
+            "js":["content.js"]
+        }
+    ],
+
+    "permissions": [
+        "unlimitedStorage",
+        "notifications",
+        "activeTab",
+        "tabs",
+        "declarativeContent",
+        "background",
+        "storage"        
+    ],
+    "host_permissions": ["<all_urls>"],
+
+    "action": {
+        "default_title": "thisisatest",
+        "default_popup": "popup.html",
+        "default_icon": {
+            
+        }
+    }
+}
