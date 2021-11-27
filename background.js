@@ -1,24 +1,21 @@
-let color = '#3aa757';
-console.log(color);
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color: color}, function(){
-    console.log('Default background color set to %cgreen', `color: ${color}`);
-  });
-  chrome.storage.sync.get(['color'], function(result){
-    console.log('the color is' + result.color);  
-  });
-  
-  
-});
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function (request, sender, sendResponse) {
     console.log(request);
-    console.log(sender.tab ?
+    /*console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
-                "from the extension");
-    if (request.greeting == "hello")
-      console.log(`received ${request.greeting} from the content script`);
-      sendResponse({farewell: "goodbye"});
+                "from the extension");*/
+    chrome.storage.sync.set({ tab: { url: sender.tab.url, count: request.count } }, function () {
+      console.log('the current tab is:' + sender.tab.url + 'with click count:' + request.count);
+    });
+    chrome.storage.sync.get(['tab'], function (result) {
+      console.log('the current tab is:' + result.tab.url + 'with click count:' + result.tab.count);
+    });
+    chrome.storage.sync.get(null, function (items) {
+      var allKeys = Object.keys(items);
+      console.log(allKeys);//get all keys in local storage
+      console.log(items.tab);
+    });
+ 
+    sendResponse({ farewell: "goodbye" });
   }
 );

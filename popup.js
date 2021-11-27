@@ -1,8 +1,11 @@
-chrome.storage.sync.get(['color'],({color})=>{
+chrome.storage.sync.get(null,(result)=>{
     let pElement = document.createElement('p');
-    let pElementText = document.createTextNode(`This info is taken from the background script, the color code is ${color}`)
+    let pElementText =document.createTextNode(`tab is : ${result.tab.url}, count is: ${result.tab.count}`)
     pElement.appendChild(pElementText);
-    let parent = document.querySelector('.container')
+    let parent = document.querySelector('.container');
     parent.appendChild(pElement);
+    
+   
+   
     
 });
